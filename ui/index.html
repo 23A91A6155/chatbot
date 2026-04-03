@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Offline Customer Support Chatbot powered by Ollama and Llama 3.2 — Compare Zero-Shot vs One-Shot prompting in real time." />
+  <title>Customer Support Chatbot — Llama 3.2</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
+</head>
+<body>
+
+  <!-- Mobile sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
+  <div class="app-container">
+
+    <!-- ==================== Sidebar ==================== -->
+    <aside class="sidebar" id="sidebar">
+
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <div class="logo-icon">🤖</div>
+          <div>
+            <h1>Support Bot</h1>
+            <p>Llama 3.2 · 3B · Offline</p>
+          </div>
+        </div>
+
+        <!-- Prompting Mode Toggle -->
+        <div class="mode-selector" role="group" aria-label="Prompting mode">
+          <button class="mode-btn" data-mode="zero-shot" id="modeZeroShot">Zero-Shot</button>
+          <button class="mode-btn active" data-mode="one-shot" id="modeOneShot">One-Shot</button>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">System Status</div>
+        <div class="status-card">
+          <div class="status-row">
+            <span class="label">Ollama</span>
+            <span class="value"><span class="status-dot offline" id="statusDot"></span><span id="statusText">Checking…</span></span>
+          </div>
+          <div class="status-row">
+            <span class="label">Model</span>
+            <span class="value">llama3.2:3b</span>
+          </div>
+          <div class="status-row">
+            <span class="label">Mode</span>
+            <span class="value">Local / Private</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample Queries -->
+      <div class="sidebar-section" style="padding-bottom: 4px;">
+        <div class="sidebar-section-title">Try a Query</div>
+      </div>
+      <div class="sample-queries" id="sampleQueries">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="sidebar-footer">
+        Powered by <strong>Ollama</strong> &amp; <strong>Llama 3.2</strong><br />
+        100% offline · Zero data leakage
+      </div>
+    </aside>
+
+    <!-- ==================== Main Chat Area ==================== -->
+    <main class="main-area">
+
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div class="top-bar-left">
+          <button class="hamburger" id="hamburger" aria-label="Toggle sidebar">☰</button>
+          <span class="top-bar-title">💬 Customer Support Chat</span>
+        </div>
+        <div class="top-bar-right">
+          <button class="top-bar-btn" id="clearBtn" aria-label="Clear chat">
+            🗑️ <span class="btn-label">Clear</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Messages -->
+      <div class="messages-container" id="messagesContainer">
+
+        <!-- Welcome State -->
+        <div class="welcome-state" id="welcomeState">
+          <div class="welcome-icon">🛒</div>
+          <h2>E-Commerce Support Assistant</h2>
+          <p>Ask any customer support question and compare how Zero-Shot and One-Shot prompting strategies respond — entirely offline and private.</p>
+          <div class="welcome-chips">
+            <button class="welcome-chip">My order status hasn't updated</button>
+            <button class="welcome-chip">How do I recover a cancelled order?</button>
+            <button class="welcome-chip">Refund not showing after 10 days</button>
+            <button class="welcome-chip">App crashes viewing order history</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Input Area -->
+      <div class="input-area">
+        <div class="input-wrapper">
+          <textarea
+            id="chatInput"
+            placeholder="Type your customer support question…"
+            rows="1"
+            aria-label="Chat message input"
+          ></textarea>
+          <button class="send-btn" id="sendBtn" aria-label="Send message">➤</button>
+        </div>
+        <div class="input-hint">
+          <span><kbd>Enter</kbd> to send · <kbd>Shift+Enter</kbd> for new line</span>
+          <span id="currentModeHint">Mode: One-Shot</span>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
